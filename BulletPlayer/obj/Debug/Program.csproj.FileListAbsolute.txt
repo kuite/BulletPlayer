@@ -1,0 +1,16 @@
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\Program.csprojResolveAssemblyReference.cache
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\BulletPlayer.Form1.resources
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\BulletPlayer.Properties.Resources.resources
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\Program.csproj.GenerateResource.Cache
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\chromedriver.exe
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\BulletPlayer.exe.config
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\BulletPlayer.exe
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\BulletPlayer.pdb
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\BulletPlayerBackend.dll
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\WebDriver.dll
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\WebDriver.Support.dll
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\BulletPlayerBackend.pdb
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\WebDriver.xml
+C:\.net projects\BulletPlayer\BulletPlayer\bin\Debug\WebDriver.Support.xml
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\BulletPlayer.exe
+C:\.net projects\BulletPlayer\BulletPlayer\obj\Debug\BulletPlayer.pdb

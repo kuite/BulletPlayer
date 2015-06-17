@@ -1,0 +1,14 @@
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\chromedriver.exe
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.pdb
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\Selenium.WebDriverBackedSelenium.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\ThoughtWorks.Selenium.Core.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.Support.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\Selenium.WebDriverBackedSelenium.xml
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\ThoughtWorks.Selenium.Core.xml
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.xml
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.Support.xml
+C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.dll
+C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.pdb
+C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\Backend.csprojResolveAssemblyReference.cache
