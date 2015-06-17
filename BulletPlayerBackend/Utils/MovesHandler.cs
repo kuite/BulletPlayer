@@ -20,8 +20,8 @@ namespace BulletPlayerBackend.Utils
 
         public bool PlayerToMove()
         {
-            if ((PlayerColor.Equals("white") && (Count % 2) == 0) ||
-                (PlayerColor.Equals("black") && (Count % 2) != 0))
+            if ((PlayerColor.Equals("white") && (Count % 2) != 0) ||
+                (PlayerColor.Equals("black") && (Count % 2) == 0))
                 return true;
 
             return false;

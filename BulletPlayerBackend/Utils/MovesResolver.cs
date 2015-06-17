@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace BulletPlayerBackend.Utils
 {
@@ -45,13 +48,46 @@ namespace BulletPlayerBackend.Utils
             return move;
         }
 
-        public string GetEngineMove(string[] computerMove)
+        public string GetSuggestedSplittedMove(string[] computerMove)
         {
             var start = computerMove[0];
             var end = computerMove[1];
             start = movesList[Int16.Parse(start)].ToString();
             end = movesList[Int16.Parse(end)].ToString();
             return start + end + " ";
+        }
+
+        public List<string> GetShortMovesList(ChromeDriver driver, MovesHandler movesHandlerInstance)
+        {
+            var moveList = new List<string>();
+            var span = new TimeSpan(0, 0, 0, 3, 0);
+            var wait = new WebDriverWait(driver, span);
+
+            movesHandlerInstance.Count = 1;
+            while (true)
+            {
+                try
+                {
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='movelist_" + movesHandlerInstance.Count + "']/a")));
+                }
+                catch (Exception)
+                {
+                    return moveList;
+                }
+                moveList.Add(driver.FindElementByXPath("//*[@id='movelist_" + movesHandlerInstance.Count + "']/a").Text);
+                movesHandlerInstance.Count++;
+            }
+        }
+
+        public List<string> GetSuggestedLongMovesList(List<string> moveList)
+        {
+            var resolvedLongMovesList = new List<string>();
+
+            for (int i = 1; i <= moveList.Count; i++)
+            {
+                resolvedLongMovesList.Add(GetSuggestedSplittedMove(GetComputerMove(moveList.GetRange(0, i))));
+            }
+            return resolvedLongMovesList;
         }
     }
 }

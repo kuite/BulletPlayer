@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "BulletPlayer\Program.csproj", "{BC9A69D9-6FA0-4756-A368-37053B263841}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "BulletPlayerBackend\Backend.csproj", "{DC15D073-A0DC-4C8C-A375-83079F2C343E}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BC9A69D9-6FA0-4756-A368-37053B263841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC9A69D9-6FA0-4756-A368-37053B263841}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC9A69D9-6FA0-4756-A368-37053B263841}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC9A69D9-6FA0-4756-A368-37053B263841}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC15D073-A0DC-4C8C-A375-83079F2C343E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC15D073-A0DC-4C8C-A375-83079F2C343E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC15D073-A0DC-4C8C-A375-83079F2C343E}.Release|Any CPU.ActiveCfg = Release|Any CPU

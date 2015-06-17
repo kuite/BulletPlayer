@@ -4,31 +4,28 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BulletPlayerBackend;
-using BulletPlayerBackend.Utils;
 
-namespace BulletPlayer
+namespace BulletPlayerBackend
 {
-    public partial class Form1 : Form
+    public partial class WindowsForm : Form
     {
         private SessionManager _manager;
 
         public string SuggestedMove { get; set; }
 
-        public Form1()
+        public WindowsForm()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _manager = new SessionManager();
-            label7.Text = "Logged as : " + _manager.Login();
+            _manager = new SessionManager(this);
+            label4.Text = "Logged as : " + _manager.Login();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -42,26 +39,17 @@ namespace BulletPlayer
             _manager.StartScann(_manager.EngineHandlerInstance, processEngine);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             //TODO: turn off scanning and playing
             _manager.IsScanning = false;
             _manager.IsPlaying = false;
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        public void ShowMove(string move)
         {
-            //_manager.MovesHandlerInstance.PlayerColor = "white";
-            //if (radioButton2.Checked)
-            //    _manager.MovesHandlerInstance.PlayerColor = "black";
-            //_manager.IsPlaying = true;
+            label3.Text = "Suggested move: " + move;
         }
-
-        public void SetLabelSeven()
-        {
-            label7.Text = SuggestedMove;
-        }
-
 
         public static void ShowConsoleWindow()
         {
@@ -95,15 +83,5 @@ namespace BulletPlayer
 
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

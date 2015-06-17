@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{DC15D073-A0DC-4C8C-A375-83079F2C343E}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BulletPlayerBackend</RootNamespace>
     <AssemblyName>BulletPlayerBackend</AssemblyName>
@@ -29,6 +29,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Selenium.WebDriverBackedSelenium, Version=2.46.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -58,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Utils\ChessBoard.cs" />
     <Compile Include="Utils\CoordinatesConverter.cs" />
     <Compile Include="SessionManager.cs" />
@@ -68,6 +72,12 @@
     <Compile Include="Utils\MovPosStack.cs" />
     <Compile Include="Utils\MovesResolver.cs" />
     <Compile Include="Utils\ZobristKey.cs" />
+    <Compile Include="WindowsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WindowsForm.Designer.cs">
+      <DependentUpon>WindowsForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,6 +87,11 @@
       <Link>chromedriver.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WindowsForm.resx">
+      <DependentUpon>WindowsForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
