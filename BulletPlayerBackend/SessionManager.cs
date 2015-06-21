@@ -36,7 +36,7 @@ namespace BulletPlayerBackend
             var loginButton = _driver.FindElementById("btnLogin");
 
             userNameField.SendKeys("kuite92");
-            userPasswordField.SendKeys("loveparade");
+            userPasswordField.SendKeys("");
 
             loginButton.Click();
 
