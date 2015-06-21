@@ -15,8 +15,6 @@ namespace BulletPlayerBackend
     {
         private SessionManager _manager;
 
-        public string SuggestedMove { get; set; }
-
         public WindowsForm()
         {
             InitializeComponent();
@@ -25,7 +23,7 @@ namespace BulletPlayerBackend
         private void button1_Click(object sender, EventArgs e)
         {
             _manager = new SessionManager(this);
-            label4.Text = "Logged as : " + _manager.Login();
+            label4.Text = "Logged as : " + _manager.Login(textBox1.Text, textBox2.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -36,18 +34,13 @@ namespace BulletPlayerBackend
             if (radioButton2.Checked)
                 _manager.MovesHandlerInstance.PlayerColor = "black";
 
-            _manager.StartPlay(_manager.EngineHandlerInstance, processEngine);
+            _manager.StartPlaying(processEngine);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //TODO: turn off playing
+            _manager.StopPlaying();
             _manager.IsPlaying = false;
-        }
-
-        public void ShowMove(string move)
-        {
-            label3.Text = "Suggested move: " + move;
         }
     }
 }

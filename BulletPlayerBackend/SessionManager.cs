@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 using BulletPlayerBackend.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -15,6 +17,7 @@ namespace BulletPlayerBackend
         private readonly ChromeDriver _driver;
         private readonly MovesResolver _resolver;
         private readonly WindowsForm _window;
+        private readonly BackgroundWorker _play;
         public readonly EngineHandler EngineHandlerInstance = new EngineHandler();
         public readonly MovesHandler MovesHandlerInstance = new MovesHandler();
 
@@ -26,17 +29,24 @@ namespace BulletPlayerBackend
             _driver = new ChromeDriver();
             _resolver = new MovesResolver();
             _window = window;
+            _play = new BackgroundWorker();
+
+            _play.DoWork += new DoWorkEventHandler(_play_DoWork);
+            _play.WorkerSupportsCancellation = true;
         }
 
-        public string Login()
+        public string Login(string username, string password)
         {
             _driver.Navigate().GoToUrl("http://live.chess.com/live?v=2015052201");
             var userNameField = _driver.FindElementById("c1");
             var userPasswordField = _driver.FindElementById("loginpassword");
             var loginButton = _driver.FindElementById("btnLogin");
 
-            userNameField.SendKeys("kuite92");
+            userNameField.SendKeys("");
             userPasswordField.SendKeys("");
+            
+            //userNameField.SendKeys(username);
+            //userPasswordField.SendKeys(password);
 
             loginButton.Click();
 
@@ -44,22 +54,39 @@ namespace BulletPlayerBackend
             return loggedAsFiled.Text;
         }
 
-        public void StartPlay(EngineHandler engineHandler, Process process)
+        public void StartPlaying(Process process)
+        {
+            _play.RunWorkerAsync(process);
+        }
+
+        public void StopPlaying()
+        {
+            _play.CancelAsync();
+            HideConsoleWindow();
+        }
+
+        private void _play_DoWork(object sender, DoWorkEventArgs e)
         {
             ShowConsoleWindow();
-            IsPlaying = true;
             var span = new TimeSpan(0, 0, 0, 60, 0);
             var wait = new WebDriverWait(_driver, span);
             var shortMovesList = _resolver.GetShortMovesList(_driver, MovesHandlerInstance);
             var resolvedLongMovesList = _resolver.GetSuggestedLongMovesList(shortMovesList);
-            while (IsPlaying)
+            var process = e.Argument as Process;
+
+            //var boardName = _driver.FindElementByXPath("//*[@class='boardContainer']").GetAttribute("id");
+            while (true)
             {
-                
+                if (_play.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
                 if (MovesHandlerInstance.PlayerToMove())
                 {
-                    var move = engineHandler.GetCalculateMove(process, resolvedLongMovesList);
+                    var move = EngineHandlerInstance.GetCalculateMove(process, resolvedLongMovesList);
                     Console.WriteLine(move);
-                    MovesHandlerInstance.DoMove(move);
+                    MovesHandlerInstance.DoMove(move, _driver);
                 }
                 try
                 {
@@ -67,8 +94,7 @@ namespace BulletPlayerBackend
                 }
                 catch (Exception)
                 {
-                    engineHandler.KillEngineProcess(process);
-                    IsPlaying = false;
+                    EngineHandlerInstance.KillEngineProcess(process);
                     break;
                 }
                 shortMovesList.Add(_driver.FindElementByXPath("//*[@id='movelist_" + MovesHandlerInstance.Count + "']/a").Text);

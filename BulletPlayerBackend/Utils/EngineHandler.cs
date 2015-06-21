@@ -40,11 +40,16 @@ namespace BulletPlayerBackend.Utils
 
         public string GetCalculateMove(Process process, List<string> resolvedMoveList)
         {
+            //var moves = String.Empty;
             var moves = "";
-            foreach (var variable in resolvedMoveList)
-                moves = moves + variable;  
+            if (resolvedMoveList != null)
+                foreach (var variable in resolvedMoveList)
+                    moves = moves + variable;  
 
-            process.StandardInput.WriteLine("position startpos moves " + moves);
+            if (moves != "")
+                process.StandardInput.WriteLine("position startpos moves " + moves);
+            else
+                process.StandardInput.WriteLine("position startpos");
             process.StandardInput.WriteLine("go");
             System.Threading.Thread.Sleep(2000);
             process.StandardInput.WriteLine("stop");
