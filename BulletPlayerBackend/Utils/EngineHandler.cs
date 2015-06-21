@@ -12,7 +12,7 @@ namespace BulletPlayerBackend.Utils
 
         public EngineHandler()
         {
-            IsRunning = true;
+            
         }
 
         public Process TurnEngineOn()

@@ -18,6 +18,9 @@ namespace BulletPlayerBackend
         public readonly EngineHandler EngineHandlerInstance = new EngineHandler();
         public readonly MovesHandler MovesHandlerInstance = new MovesHandler();
 
+        //public bool IsScanning { get; set; }
+        public bool IsPlaying { get; set; }
+
         public SessionManager(WindowsForm window)
         {
             _driver = new ChromeDriver();
@@ -25,56 +28,47 @@ namespace BulletPlayerBackend
             _window = window;
         }
 
-        public bool IsScanning { get; set; }
-        public bool IsPlaying { get; set; }
-
-        public string Login() //string login, string password, string url
+        public string Login()
         {
             _driver.Navigate().GoToUrl("http://live.chess.com/live?v=2015052201");
             var userNameField = _driver.FindElementById("c1");
             var userPasswordField = _driver.FindElementById("loginpassword");
             var loginButton = _driver.FindElementById("btnLogin");
 
-            //_driver.Navigate().GoToUrl("67.201.34.165");
-            //var userNameField = _driver.FindElementById("loginusername");
-            //var userPasswordField = _driver.FindElementById("loginpassword");
-            //var loginButton = _driver.FindElementById("btnLogin");
-
-            userNameField.SendKeys("");
-            userPasswordField.SendKeys("");
+            userNameField.SendKeys("kuite92");
+            userPasswordField.SendKeys("loveparade");
 
             loginButton.Click();
 
             var loggedAsFiled = _driver.FindElementByClassName("chess_com_username_link");
             return loggedAsFiled.Text;
-            //return null;
         }
 
-        public void StartScann(EngineHandler engineHandler, Process process)
+        public void StartPlay(EngineHandler engineHandler, Process process)
         {
             ShowConsoleWindow();
+            IsPlaying = true;
             var span = new TimeSpan(0, 0, 0, 60, 0);
             var wait = new WebDriverWait(_driver, span);
-
             var shortMovesList = _resolver.GetShortMovesList(_driver, MovesHandlerInstance);
             var resolvedLongMovesList = _resolver.GetSuggestedLongMovesList(shortMovesList);
-            while (true)
+            while (IsPlaying)
             {
+                
                 if (MovesHandlerInstance.PlayerToMove())
                 {
                     var move = engineHandler.GetCalculateMove(process, resolvedLongMovesList);
                     Console.WriteLine(move);
-                    _window.ShowMove(move);
                     MovesHandlerInstance.DoMove(move);
                 }
                 try
                 {
-                    wait.Until(
-                        ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='movelist_" + MovesHandlerInstance.Count + "']/a")));
+                    wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='movelist_" + MovesHandlerInstance.Count + "']/a")));
                 }
                 catch (Exception)
                 {
                     engineHandler.KillEngineProcess(process);
+                    IsPlaying = false;
                     break;
                 }
                 shortMovesList.Add(_driver.FindElementByXPath("//*[@id='movelist_" + MovesHandlerInstance.Count + "']/a").Text);
