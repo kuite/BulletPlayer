@@ -10,11 +10,6 @@ namespace BulletPlayerBackend.Utils
     {
         public bool IsRunning { get; set; }
 
-        public EngineHandler()
-        {
-            
-        }
-
         public Process TurnEngineOn()
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -40,8 +35,7 @@ namespace BulletPlayerBackend.Utils
 
         public string GetCalculateMove(Process process, List<string> resolvedMoveList)
         {
-            //var moves = String.Empty;
-            var moves = "";
+            var moves = String.Empty;
             if (resolvedMoveList != null)
                 foreach (var variable in resolvedMoveList)
                     moves = moves + variable;  
@@ -50,9 +44,8 @@ namespace BulletPlayerBackend.Utils
                 process.StandardInput.WriteLine("position startpos moves " + moves);
             else
                 process.StandardInput.WriteLine("position startpos");
-            process.StandardInput.WriteLine("go");
-            System.Threading.Thread.Sleep(2000);
-            process.StandardInput.WriteLine("stop");
+            process.StandardInput.WriteLine("go movetime 50");
+            System.Threading.Thread.Sleep(100);
 
             string lastLine = null;
             while (!process.StandardOutput.EndOfStream)

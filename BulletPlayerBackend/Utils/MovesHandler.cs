@@ -13,20 +13,31 @@ namespace BulletPlayerBackend.Utils
         public string PlayerColor { get; set; }
         public int Count { get; set; }
 
-        public void DoMove(string move, ChromeDriver driver)
+        public void DoMove(string move)
         {
             var alphabet = "abcdefgh";
             var start = move.Substring(0, 2);
             var end = move.Substring(2, 2);
+            int startX, startY, endX, endY;
+            if (PlayerColor == "white")
+            {
+                startX = (alphabet.LastIndexOf(start.Substring(0, 1)) * 83) + 100;
+                startY = 800 - 83 * (Int32.Parse(start.Substring(1, 1)) - 1);
+                endX = (alphabet.LastIndexOf(end.Substring(0, 1)) * 83) + 100;
+                endY = 800 - 83 * (Int32.Parse(end.Substring(1, 1)) - 1);
+            }
+            else
+            {
+                alphabet = "hgfedcba";
+                startX = (alphabet.LastIndexOf(start.Substring(0, 1)) * 83) + 100;
+                startY = 219 + 83 * (Int32.Parse(start.Substring(1, 1)) - 1);
+                endX = (alphabet.LastIndexOf(end.Substring(0, 1)) * 83) + 100;
+                endY = 219 + 83 * (Int32.Parse(end.Substring(1, 1)) - 1);  
+            }
 
-            var startX = (alphabet.LastIndexOf(start.Substring(0, 1)) * 83) + 100;
-            var startY = 800 - 83 * (Int32.Parse(start.Substring(1,1)));
-            var endX = (alphabet.LastIndexOf(end.Substring(0, 1)) * 83) + 100;
-            var endY = 800 - 83 * (Int32.Parse(end.Substring(1,1)) - 1);
-
-            LeftMouseClick(startX, startY);
-            System.Threading.Thread.Sleep(20);
-            LeftMouseClick(endX, endY);
+            LeftMouseClick(startX, startY - 25);
+            System.Threading.Thread.Sleep(100);
+            LeftMouseClick(endX, endY - 25);
         }
 
         public bool PlayerToMove()

@@ -42,5 +42,10 @@ namespace BulletPlayerBackend
             _manager.StopPlaying();
             _manager.IsPlaying = false;
         }
+
+        public void SetMsg(string s)
+        {
+            label3.Text = s;
+        }
     }
 }

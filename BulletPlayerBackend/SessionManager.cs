@@ -16,8 +16,8 @@ namespace BulletPlayerBackend
         private const int SW_SHOW = 5;
         private readonly ChromeDriver _driver;
         private readonly MovesResolver _resolver;
-        private readonly WindowsForm _window;
         private readonly BackgroundWorker _play;
+        private readonly WindowsForm _window;
         public readonly EngineHandler EngineHandlerInstance = new EngineHandler();
         public readonly MovesHandler MovesHandlerInstance = new MovesHandler();
 
@@ -26,9 +26,9 @@ namespace BulletPlayerBackend
 
         public SessionManager(WindowsForm window)
         {
+            _window = window;
             _driver = new ChromeDriver();
             _resolver = new MovesResolver();
-            _window = window;
             _play = new BackgroundWorker();
 
             _play.DoWork += new DoWorkEventHandler(_play_DoWork);
@@ -42,11 +42,8 @@ namespace BulletPlayerBackend
             var userPasswordField = _driver.FindElementById("loginpassword");
             var loginButton = _driver.FindElementById("btnLogin");
 
-            userNameField.SendKeys("");
-            userPasswordField.SendKeys("");
-            
-            //userNameField.SendKeys(username);
-            //userPasswordField.SendKeys(password);
+            userNameField.SendKeys(username);
+            userPasswordField.SendKeys(password);
 
             loginButton.Click();
 
@@ -56,37 +53,43 @@ namespace BulletPlayerBackend
 
         public void StartPlaying(Process process)
         {
-            _play.RunWorkerAsync(process);
+            try
+            {
+                _play.RunWorkerAsync(process);
+            }
+            catch (Exception e)
+            {
+                _window.SetMsg("Engine still working, try again in 10s...");
+                System.Threading.Thread.Sleep(10000);
+            }
+
         }
 
         public void StopPlaying()
         {
             _play.CancelAsync();
-            HideConsoleWindow();
         }
 
         private void _play_DoWork(object sender, DoWorkEventArgs e)
         {
-            ShowConsoleWindow();
             var span = new TimeSpan(0, 0, 0, 60, 0);
             var wait = new WebDriverWait(_driver, span);
             var shortMovesList = _resolver.GetShortMovesList(_driver, MovesHandlerInstance);
             var resolvedLongMovesList = _resolver.GetSuggestedLongMovesList(shortMovesList);
             var process = e.Argument as Process;
 
-            //var boardName = _driver.FindElementByXPath("//*[@class='boardContainer']").GetAttribute("id");
             while (true)
             {
                 if (_play.CancellationPending)
                 {
                     e.Cancel = true;
+                    EngineHandlerInstance.KillEngineProcess(process);
                     return;
                 }
                 if (MovesHandlerInstance.PlayerToMove())
                 {
                     var move = EngineHandlerInstance.GetCalculateMove(process, resolvedLongMovesList);
-                    Console.WriteLine(move);
-                    MovesHandlerInstance.DoMove(move, _driver);
+                    MovesHandlerInstance.DoMove(move);
                 }
                 try
                 {
@@ -102,35 +105,5 @@ namespace BulletPlayerBackend
                 MovesHandlerInstance.Count++;
             }
         }
-
-        public static void ShowConsoleWindow()
-        {
-            var handle = GetConsoleWindow();
-
-            if (handle == IntPtr.Zero)
-            {
-                AllocConsole();
-            }
-            else
-            {
-                ShowWindow(handle, SW_SHOW);
-            }
-        }
-
-        public static void HideConsoleWindow()
-        {
-            var handle = GetConsoleWindow();
-
-            ShowWindow(handle, SW_HIDE);
-        }
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool AllocConsole();
-
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetConsoleWindow();
-
-        [DllImport("user32.dll")]
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
     }
 }
