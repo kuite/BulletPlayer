@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace BulletPlayerBackend.Utils {
+    //class borrowed from http://www.codeproject.com/Articles/36112/Chess-Program-in-C
     /// <summary>Implementation of the chess board without any user interface.</summary>
     public sealed class ChessBoard : IXmlSerializable {
         
