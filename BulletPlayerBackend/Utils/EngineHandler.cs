@@ -10,49 +10,52 @@ namespace BulletPlayerBackend.Utils
     public class EngineHandler
     {
         public bool IsRunning { get; set; }
+        public Process Process { get; set; }
 
         public Process TurnEngineOn()
         {
-            ProcessStartInfo startInfo = new ProcessStartInfo();
-            startInfo.RedirectStandardInput = true;
-            startInfo.RedirectStandardOutput = true;
-            startInfo.UseShellExecute = false;
-            startInfo.ErrorDialog = false;
-            startInfo.CreateNoWindow = true;
-            startInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "\\engine.exe";
+            var startInfo = new ProcessStartInfo
+            {
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                ErrorDialog = false,
+                CreateNoWindow = true,
+                FileName = AppDomain.CurrentDomain.BaseDirectory + "\\engine.exe"
+            };
 
-            Process process = new Process();
-            process.StartInfo = startInfo;
-            process.Start();
+            Process = new Process();
+            Process.StartInfo = startInfo;
+            Process.Start();
             IsRunning = true;
-            return process;
+            return Process;
         }
 
-        public void KillEngineProcess(Process process)
+        public void TurnEngineOff()
         {  
-            process.Close();
+            Process.Close();
             IsRunning = false;
         }
 
         public string GetCalculateMove(Process process, List<string> resolvedMoveList)
         {
-            var moveTime = 200;
+            var moveTime = 100;
             var moves = String.Empty;
             if (resolvedMoveList != null)
                 foreach (var variable in resolvedMoveList)
                     moves = moves + variable;
 
-            if (resolvedMoveList.Count > 24)
-                moveTime = 500;
+            if (resolvedMoveList.Count > 16)
+                moveTime = 1000;
             if (resolvedMoveList.Count > 60)
-                moveTime = 150;
+                moveTime = 100;
 
             if (moves != "")
                 process.StandardInput.WriteLine("position startpos moves " + moves);
             else
                 process.StandardInput.WriteLine("position startpos");
             process.StandardInput.WriteLine("go movetime " + moveTime);
-            System.Threading.Thread.Sleep(moveTime + 10);
+            System.Threading.Thread.Sleep(moveTime + 10); //TODO: probably unnecessary code
 
             string lastLine = null;
             while (!process.StandardOutput.EndOfStream)

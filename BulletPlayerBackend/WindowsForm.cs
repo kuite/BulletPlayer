@@ -23,29 +23,35 @@ namespace BulletPlayerBackend
         private void button1_Click(object sender, EventArgs e)
         {
             _manager = new SessionManager(this);
-            label4.Text = "Logged as : " + _manager.Login(textBox1.Text, textBox2.Text);
+            _manager.Login(textBox1.Text, textBox2.Text, comboBox1.SelectedItem.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var processEngine = _manager.EngineHandlerInstance.TurnEngineOn();
-
-            _manager.MovesHandlerInstance.PlayerColor = "white";
+            _manager.PlayerColor = "white";
             if (radioButton2.Checked)
-                _manager.MovesHandlerInstance.PlayerColor = "black";
+                _manager.PlayerColor = "black";
 
-            _manager.StartPlaying(processEngine);
+            _manager.StartPlaying();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             _manager.StopPlaying();
-            _manager.IsPlaying = false;
         }
 
-        public void SetMsg(string s)
+        private void button4_Click(object sender, EventArgs e)
         {
-            label3.Text = s;
+            _manager.SetBoardCoordinates();
+        }
+
+        public void SetNotification(string notification)
+        {
+            label5.Text = notification;
+            if (notification.StartsWith("B"))
+                label5.ForeColor = Color.OrangeRed;
+            if (notification.StartsWith("F"))
+                label5.ForeColor = Color.ForestGreen;
         }
     }
 }

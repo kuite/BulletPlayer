@@ -13,4 +13,3 @@ C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\Backend.csproj.Gener
 C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.WindowsForm.resources
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.exe
 C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.exe
-C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\Backend.csprojResolveAssemblyReference.cache

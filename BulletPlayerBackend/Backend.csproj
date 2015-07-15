@@ -67,6 +67,11 @@
     <Compile Include="SessionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\EngineHandler.cs" />
+    <Compile Include="Utils\Hooks\HookManager.Callbacks.cs" />
+    <Compile Include="Utils\Hooks\HookManager.cs" />
+    <Compile Include="Utils\Hooks\HookManager.Structures.cs" />
+    <Compile Include="Utils\Hooks\HookManager.Windows.cs" />
+    <Compile Include="Utils\Hooks\MouseEventExtArgs.cs" />
     <Compile Include="Utils\MoveHistory.cs" />
     <Compile Include="Utils\MovesHandler.cs" />
     <Compile Include="Utils\MovPosStack.cs" />
