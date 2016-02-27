@@ -1,4 +1,5 @@
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\chromedriver.exe
+C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.exe
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.pdb
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\Selenium.WebDriverBackedSelenium.dll
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\ThoughtWorks.Selenium.Core.dll
@@ -8,8 +9,7 @@ C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\Selenium.WebDriverBa
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\ThoughtWorks.Selenium.Core.xml
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.xml
 C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\WebDriver.Support.xml
-C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.pdb
-C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\Backend.csproj.GenerateResource.Cache
 C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.WindowsForm.resources
-C:\.net projects\BulletPlayer\BulletPlayerBackend\bin\Debug\BulletPlayerBackend.exe
+C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\Backend.csproj.GenerateResource.Cache
 C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.exe
+C:\.net projects\BulletPlayer\BulletPlayerBackend\obj\Debug\BulletPlayerBackend.pdb

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace BulletPlayerBackend.Utils
 {
@@ -41,9 +41,10 @@ namespace BulletPlayerBackend.Utils
         {
             var moveTime = 100;
             var moves = String.Empty;
-            if (resolvedMoveList != null)
-                foreach (var variable in resolvedMoveList)
-                    moves = moves + variable;
+            if (resolvedMoveList != null) 
+            {
+                moves = resolvedMoveList.Aggregate(moves, (current, variable) => current + variable);
+            }
 
             if (resolvedMoveList.Count > 16)
                 moveTime = 1000;
@@ -55,7 +56,7 @@ namespace BulletPlayerBackend.Utils
             else
                 process.StandardInput.WriteLine("position startpos");
             process.StandardInput.WriteLine("go movetime " + moveTime);
-            System.Threading.Thread.Sleep(moveTime + 10); //TODO: probably unnecessary code
+            Thread.Sleep(moveTime + 10); //TODO: probably unnecessary code
 
             string lastLine = null;
             while (!process.StandardOutput.EndOfStream)

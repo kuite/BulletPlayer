@@ -67,6 +67,25 @@ namespace BulletPlayerBackend.Utils
             LeftMouseClick(endX, endY);
         }
 
+        public string GetMovePath(int count)
+        {
+            if (_session.Website.Equals("chess.com"))
+                return "//*[@id='movelist_" + count + "']/a";
+            if (_session.Website.Equals("lichess.com"))
+                return "//*[@data-ply='" + count + "']";
+            return null;
+        }
+
+        public void StartPlay(Process process)
+        {
+            _play.RunWorkerAsync(process);
+        }
+
+        public void StopPlay()
+        {
+            _play.CancelAsync();
+        }
+
         private void _play_DoWork(object sender, DoWorkEventArgs e)
         {
             var span = new TimeSpan(0, 0, 0, 15, 0);
@@ -103,17 +122,6 @@ namespace BulletPlayerBackend.Utils
             }
         }
 
-
-        public void StartPlay(Process process)
-        {
-            _play.RunWorkerAsync(process);
-        }
-
-        public void StopPlay()
-        {
-            _play.CancelAsync();
-        }
-
         private bool PlayerToMove()
         {
             if ((_session.PlayerColor.Equals("white") && (Count % 2) != 0) ||
@@ -121,15 +129,6 @@ namespace BulletPlayerBackend.Utils
                 return true;
 
             return false;
-        }
-
-        public string GetMovePath(int count)
-        {
-            if (_session.Website.Equals("chess.com"))
-                return "//*[@id='movelist_" + count + "']/a";
-            if (_session.Website.Equals("lichess.com"))
-                return "//*[@data-ply='" + count + "']";
-            return null;
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

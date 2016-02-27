@@ -16,7 +16,7 @@ namespace BulletPlayerBackend.Utils
         private int iTruncated;
         private Parser _resolver;
 
-        ArrayList movesList = new ArrayList
+        readonly ArrayList _movesList = new ArrayList
         {
             "h1", "g1", "f1", "e1", "d1", "c1", "b1", "a1", 
             "h2", "g2", "f2", "e2", "d2", "c2", "b2", "a2", 
@@ -42,8 +42,8 @@ namespace BulletPlayerBackend.Utils
         {
             var start = computerMove[0];
             var end = computerMove[1];
-            start = movesList[Int16.Parse(start)].ToString();
-            end = movesList[Int16.Parse(end)].ToString();
+            start = _movesList[Int16.Parse(start)].ToString();
+            end = _movesList[Int16.Parse(end)].ToString();
             return start + end + " ";
         }
 
